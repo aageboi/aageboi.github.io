@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Situasi Virus Corona: Sumber covid19.go.id</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// https://data.covid19.go.id/public/api/prov.json
+		fetch('https://data.covid19.go.id/public/api/prov.json', {
+			method: 'GET',
+			referrer: 'https://data.covid19.go.id/public/index.html',
+			referrerPolicy: "no-referrer-when-downgrade",
+		})
+			.then(res => res.json())
+			.then(data => console.log(data))
+	</script>
+</body>
+</html>
