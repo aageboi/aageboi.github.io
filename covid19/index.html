@@ -4,15 +4,123 @@
 	<title>Data Situasi Virus Corona: Sumber covid19.go.id</title>
 </head>
 <body>
+	<div id="app">
+		<h1>{{ message }}</h1>
+		<table width="100%" border="1" v-if="prov?.length > 0">
+			<thead>
+				<tr>
+					<th rowspan="2">PROVINSI</th>
+					<th rowspan="2">JUMLAH KASUS</th>
+					<th colspan="2">JENIS KELAMIN</th>
+					<th colspan="6">USIA</th>
+					<th rowspan="2">SEMBUH</th>
+					<th rowspan="2">MENINGGAL</th>
+					<th rowspan="2">DIRAWAT</th>
+				</tr>
+				<tr>
+					<th>LAKI-LAKI</th>
+					<th>PEREMPUAN</th>
+					<th>0-5</th>
+					<th>6-17</th>
+					<th>18-30</th>
+					<th>31-45</th>
+					<th>46-59</th>
+					<th>&ge; 60</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="item in prov">
+				  <td>{{ item.key }}</td>
+				  <td align="center">
+				  	<strong>{{ item.jumlah_kasus }}</strong>
+				  </td>
+			  	<td align="center" v-for="kel in item.jenis_kelamin">
+			  		{{ kel.doc_count }}
+			  	</td>
+			  	<td align="center">
+			  		<span v-if="item.kelompok_umur[0].key == '0-5'">
+			  			{{ item.kelompok_umur[0].doc_count }}
+			  		</span>
+			  		<span v-else>&nbsp;</span>
+			  	</td>
+			  	<td align="center">
+			  		<span v-if="item.kelompok_umur[1].key == '6-17'">
+			  			{{ item.kelompok_umur[1].doc_count }}
+			  		</span>
+			  		<span v-if="item.kelompok_umur[0].key == '6-17'">
+			  			{{ item.kelompok_umur[0].doc_count }}
+			  		</span>
+			  		<span v-else>&nbsp;</span>
+			  	</td>
+			  	<td align="center">
+			  		<span v-if="item.kelompok_umur[2].key == '18-30'">
+			  			{{ item.kelompok_umur[2].doc_count }}
+			  		</span>
+			  		<span v-if="item.kelompok_umur[1].key == '18-30'">
+			  			{{ item.kelompok_umur[1].doc_count }}
+			  		</span>
+			  		<span v-else>&nbsp;</span>
+			  	</td>
+			  	<td align="center">
+			  		<span v-if="item.kelompok_umur[3].key == '31-45'">
+			  			{{ item.kelompok_umur[3].doc_count }}
+			  		</span>
+			  		<span v-if="item.kelompok_umur[2].key == '31-45'">
+			  			{{ item.kelompok_umur[2].doc_count }}
+			  		</span>
+			  		<span v-else>&nbsp;</span>
+			  	</td>
+			  	<td align="center">
+			  		<span v-if="item.kelompok_umur[4].key == '46-59'">
+			  			{{ item.kelompok_umur[4].doc_count }}
+			  		</span>
+			  		<span v-if="item.kelompok_umur[3].key == '46-59'">
+			  			{{ item.kelompok_umur[3].doc_count }}
+			  		</span>
+			  		<span v-else>&nbsp;</span>
+			  	</td>
+			  	<td align="center">
+			  		<span v-if="item.kelompok_umur.length > 5">
+			  			{{ item.kelompok_umur[5].doc_count }}
+			  		</span>
+			  		<span v-else>
+			  			{{ item.kelompok_umur[4].doc_count }}
+			  		</span>
+			  	</td>
+			  	<!-- <td align="center" v-for="umur in item.kelompok_umur">
+			  		{{ umur.key + ' ' + umur.doc_count }}
+			  	</td> -->
+				  <td align="center">{{ item.jumlah_sembuh }}</td>
+				  <td align="center">{{ item.jumlah_meninggal }}</td>
+				  <td align="center">{{ item.jumlah_dirawat }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<i v-else>Loading...</i>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script type="text/javascript">
-		// https://data.covid19.go.id/public/api/prov.json
-		fetch('https://data.covid19.go.id/public/api/prov.json', {
-			method: 'GET',
-			referrer: 'https://data.covid19.go.id/public/index.html',
-			referrerPolicy: "no-referrer-when-downgrade",
+		var app = new Vue({
+		  el: '#app',
+		  data: {
+		    message: 'Data Situasi Covid-19',
+		    prov: []
+		  },
+		  mounted() {
+		  	axios
+		  		.get("https://guyub.id/covid.php?api=prov")
+		  		.then(res => {
+		  			this.message = "Last update: " + res.data.last_date
+		  			this.prov = res.data.list_data
+		  		})
+		  },
+		  computed: {
+		  	kelompokUmur: function() {
+		  		return this.prov.kelompok_umur
+		  	}
+		  }
 		})
-			.then(res => res.json())
-			.then(data => console.log(data))
 	</script>
 </body>
 </html>
