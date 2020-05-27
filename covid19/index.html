@@ -5,7 +5,30 @@
 </head>
 <body>
 	<div id="app">
-		<h1>{{ message }}</h1>
+		<h1>Data Situasi Covid-19 Indonesia</h1>
+		<table width="100%" border="1" v-if="typeof update.data !== 'undefined'">
+			<tr>
+				<td align="center">
+					<h1>{{ update.data.jumlah_pdp }}</h1><strong>PDP</strong>
+				</td>
+				<td align="center">
+					<h1>{{ update.data.jumlah_odp }}</h1><strong>ODP</strong>
+				</td>
+				<td align="center">
+					<h1>{{ update.update.total.jumlah_positif }}</h1><strong>POSITIF</strong>
+				</td>
+				<td align="center">
+					<h1>{{ update.update.total.jumlah_dirawat }}</h1><strong>DIRAWAT</strong>
+				</td>
+				<td align="center">
+					<h1>{{ update.update.total.jumlah_sembuh }}</h1><strong>SEMBUH</strong>
+				</td>
+				<td align="center">
+					<h1>{{ update.update.total.jumlah_meninggal }}</h1><strong>MENINGGAL</strong>
+				</td>
+			</tr>
+		</table>
+		<br>
 		<table width="100%" border="1" v-if="prov?.length > 0">
 			<thead>
 				<tr>
@@ -104,15 +127,20 @@
 		var app = new Vue({
 		  el: '#app',
 		  data: {
-		    message: 'Data Situasi Covid-19',
-		    prov: []
+		    prov: [],
+		    update: []
 		  },
 		  mounted() {
 		  	axios
 		  		.get("https://guyub.id/covid.php?api=prov")
 		  		.then(res => {
-		  			this.message = "Last update: " + res.data.last_date
 		  			this.prov = res.data.list_data
+		  		})
+
+		  	axios
+		  		.get("https://guyub.id/covid.php?api=update")
+		  		.then(res => {
+		  			this.update = res.data
 		  		})
 		  },
 		  computed: {
