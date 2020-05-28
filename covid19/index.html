@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Data Situasi Virus Corona: Sumber covid19.go.id</title>
 </head>
+
 <body>
 	<div id="app">
 		<h1>Data Situasi Covid-19 Indonesia</h1>
 		<table width="100%" border="1" v-if="typeof update.data !== 'undefined'">
+			<tr>
+				<td align="center">
+					Last update<br>
+					<strong>{{ update.update.penambahan.tanggal }}</strong>
+				</td>
+				<td>&nbsp;</td>
+				<td align="center">
+					<h1>+{{ update.update.penambahan.jumlah_positif }}</h1><strong>POSITIF</strong>
+				</td>
+				<td align="center">
+					<h1>+{{ update.update.penambahan.jumlah_dirawat }}</h1><strong>DIRAWAT</strong>
+				</td>
+				<td align="center">
+					<h1>+{{ update.update.penambahan.jumlah_sembuh }}</h1><strong>SEMBUH</strong>
+				</td>
+				<td align="center">
+					<h1>+{{ update.update.penambahan.jumlah_meninggal }}</h1><strong>MENINGGAL</strong>
+				</td>
+			</tr>
 			<tr>
 				<td align="center">
 					<h1>{{ update.data.jumlah_pdp }}</h1><strong>PDP</strong>
@@ -53,102 +74,127 @@
 			</thead>
 			<tbody>
 				<tr v-for="item in prov">
-				  <td>{{ item.key }}</td>
-				  <td align="center">
-				  	<strong>{{ item.jumlah_kasus }}</strong>
-				  </td>
-			  	<td align="center" v-for="kel in item.jenis_kelamin">
-			  		{{ kel.doc_count }}
-			  	</td>
-			  	<td align="center">
-			  		<span v-if="item.kelompok_umur[0].key == '0-5'">
-			  			{{ item.kelompok_umur[0].doc_count }}
-			  		</span>
-			  		<span v-else>&nbsp;</span>
-			  	</td>
-			  	<td align="center">
-			  		<span v-if="item.kelompok_umur[1].key == '6-17'">
-			  			{{ item.kelompok_umur[1].doc_count }}
-			  		</span>
-			  		<span v-if="item.kelompok_umur[0].key == '6-17'">
-			  			{{ item.kelompok_umur[0].doc_count }}
-			  		</span>
-			  		<span v-else>&nbsp;</span>
-			  	</td>
-			  	<td align="center">
-			  		<span v-if="item.kelompok_umur[2].key == '18-30'">
-			  			{{ item.kelompok_umur[2].doc_count }}
-			  		</span>
-			  		<span v-if="item.kelompok_umur[1].key == '18-30'">
-			  			{{ item.kelompok_umur[1].doc_count }}
-			  		</span>
-			  		<span v-else>&nbsp;</span>
-			  	</td>
-			  	<td align="center">
-			  		<span v-if="item.kelompok_umur[3].key == '31-45'">
-			  			{{ item.kelompok_umur[3].doc_count }}
-			  		</span>
-			  		<span v-if="item.kelompok_umur[2].key == '31-45'">
-			  			{{ item.kelompok_umur[2].doc_count }}
-			  		</span>
-			  		<span v-else>&nbsp;</span>
-			  	</td>
-			  	<td align="center">
-			  		<span v-if="item.kelompok_umur[4].key == '46-59'">
-			  			{{ item.kelompok_umur[4].doc_count }}
-			  		</span>
-			  		<span v-if="item.kelompok_umur[3].key == '46-59'">
-			  			{{ item.kelompok_umur[3].doc_count }}
-			  		</span>
-			  		<span v-else>&nbsp;</span>
-			  	</td>
-			  	<td align="center">
-			  		<span v-if="item.kelompok_umur.length > 5">
-			  			{{ item.kelompok_umur[5].doc_count }}
-			  		</span>
-			  		<span v-else>
-			  			{{ item.kelompok_umur[4].doc_count }}
-			  		</span>
-			  	</td>
-			  	<!-- <td align="center" v-for="umur in item.kelompok_umur">
+					<td>{{ item.key }}</td>
+					<td align="center">
+						<strong>{{ item.jumlah_kasus }}</strong>
+					</td>
+					<td align="center" v-for="kel in item.jenis_kelamin">
+						{{ kel.doc_count }}
+					</td>
+					<td align="center">
+						<span v-if="item.kelompok_umur[0].key == '0-5'">
+							{{ item.kelompok_umur[0].doc_count }}
+						</span>
+						<span v-else>&nbsp;</span>
+					</td>
+					<td align="center">
+						<span v-if="item.kelompok_umur[1].key == '6-17'">
+							{{ item.kelompok_umur[1].doc_count }}
+						</span>
+						<span v-if="item.kelompok_umur[0].key == '6-17'">
+							{{ item.kelompok_umur[0].doc_count }}
+						</span>
+						<span v-else>&nbsp;</span>
+					</td>
+					<td align="center">
+						<span v-if="item.kelompok_umur[2].key == '18-30'">
+							{{ item.kelompok_umur[2].doc_count }}
+						</span>
+						<span v-if="item.kelompok_umur[1].key == '18-30'">
+							{{ item.kelompok_umur[1].doc_count }}
+						</span>
+						<span v-else>&nbsp;</span>
+					</td>
+					<td align="center">
+						<span v-if="item.kelompok_umur[3].key == '31-45'">
+							{{ item.kelompok_umur[3].doc_count }}
+						</span>
+						<span v-if="item.kelompok_umur[2].key == '31-45'">
+							{{ item.kelompok_umur[2].doc_count }}
+						</span>
+						<span v-else>&nbsp;</span>
+					</td>
+					<td align="center">
+						<span v-if="item.kelompok_umur[4].key == '46-59'">
+							{{ item.kelompok_umur[4].doc_count }}
+						</span>
+						<span v-if="item.kelompok_umur[3].key == '46-59'">
+							{{ item.kelompok_umur[3].doc_count }}
+						</span>
+						<span v-else>&nbsp;</span>
+					</td>
+					<td align="center">
+						<span v-if="item.kelompok_umur.length > 5">
+							{{ item.kelompok_umur[5].doc_count }}
+						</span>
+						<span v-else>
+							{{ item.kelompok_umur[4].doc_count }}
+						</span>
+					</td>
+					<!-- <td align="center" v-for="umur in item.kelompok_umur">
 			  		{{ umur.key + ' ' + umur.doc_count }}
 			  	</td> -->
-				  <td align="center">{{ item.jumlah_sembuh }}</td>
-				  <td align="center">{{ item.jumlah_meninggal }}</td>
-				  <td align="center">{{ item.jumlah_dirawat }}</td>
+					<td align="center">{{ item.jumlah_sembuh }}</td>
+					<td align="center">{{ item.jumlah_meninggal }}</td>
+					<td align="center">{{ item.jumlah_dirawat }}</td>
 				</tr>
 			</tbody>
 		</table>
 		<i v-else>Loading...</i>
+		<br>
+		<table width="100%" border="1" v-if="typeof update.data !== 'undefined'">
+			<thead>
+				<tr>
+					<td>UPDATE HARIAN</td>
+				</tr>
+				<tr>
+					<th>TANGGAL</th>
+					<th>MENINGGAL</th>
+					<th>SEMBUH</th>
+					<th>POSITIF</th>
+					<th>DIRAWAT</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="item in update.update.harian">
+					<td>{{ item.key_as_string.split('T')[0] }}</td>
+					<td align="center">{{ item.jumlah_meninggal.value }}</td>
+					<td align="center">{{ item.jumlah_sembuh.value }}</td>
+					<td align="center">{{ item.jumlah_positif.value }}</td>
+					<td align="center">{{ item.jumlah_dirawat.value }}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script type="text/javascript">
 		var app = new Vue({
-		  el: '#app',
-		  data: {
-		    prov: [],
-		    update: []
-		  },
-		  mounted() {
-		  	axios
-		  		.get("https://guyub.id/covid.php?api=prov")
-		  		.then(res => {
-		  			this.prov = res.data.list_data
-		  		})
+			el: '#app',
+			data: {
+				prov: [],
+				update: []
+			},
+			mounted() {
+				axios
+					.get("https://guyub.id/covid.php?api=prov")
+					.then(res => {
+						this.prov = res.data.list_data
+					})
 
-		  	axios
-		  		.get("https://guyub.id/covid.php?api=update")
-		  		.then(res => {
-		  			this.update = res.data
-		  		})
-		  },
-		  computed: {
-		  	kelompokUmur: function() {
-		  		return this.prov.kelompok_umur
-		  	}
-		  }
+				axios
+					.get("https://guyub.id/covid.php?api=update")
+					.then(res => {
+						this.update = res.data
+					})
+			},
+			computed: {
+				kelompokUmur: function () {
+					return this.prov.kelompok_umur
+				}
+			}
 		})
 	</script>
 </body>
+
 </html>
