@@ -1,0 +1,160 @@
+<html>
+
+<head>
+  <title>CSS </title>
+  <style>
+    .header {
+      grid-area: header;
+      text-align: center;
+    }
+
+    .main {
+      grid-area: main;
+      text-align: center;
+    }
+
+    .right {
+      grid-area: right;
+    }
+
+    .container {
+      display: grid;
+      grid-template-areas:
+        'header header header header'
+        'main main main right';
+      grid-gap: 10px;
+      padding: 10px;
+    }
+
+    .container>div {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      background-color: #2196F3;
+      padding: 10px;
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+    }
+
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .select-css {
+      margin-bottom: 20px;
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    #displayCode {
+      background-color: #f3f3f3;
+    }
+
+    .animate {
+      animation: mymove 5s;
+    }
+
+    @keyframes mymove {
+      from {
+        background-color: rgb(252, 227, 4);
+      }
+
+      to {
+        background-color: #f3f3f3;
+      }
+    }
+
+    .item1 {
+      grid-column-start: 1;
+      grid-column-end: 1;
+    }
+
+    pre {
+      background-color: #f3f3f3;
+      border-radius: 5px;
+      padding: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>CSS Grid Layout Module</h1>
+    </div>
+    <div class="main">
+      <div class="grid-container">
+        <div class="grid-item item1">.item1</div>
+        <div class="grid-item item2">.item2</div>
+        <div class="grid-item item3">.item3</div>
+        <div class="grid-item item4">.item4</div>
+        <div class="grid-item item5">.item5</div>
+        <div class="grid-item item6">.item6</div>
+        <div class="grid-item item7">.item7</div>
+        <div class="grid-item item8">.item8</div>
+        <div class="grid-item item9">.item9</div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="select-css">
+        <code>
+          .grid-container {<br>
+            &nbsp; display:
+            <select id="display" class="prop" data-container='grid-container'>
+            <option value="grid">grid</option>
+            <option value="inline-grid">inline-grid</option>
+          </select><br>}
+          <div style="padding-top: 10px;">
+            .item1 {<br>
+            &nbsp; grid-column-start: <input type="number" id="grid-column-start" class="prop" value="1" data-container='item1' size="3" min="1"><br>
+            &nbsp; grid-column-end: <input type="number" id="grid-column-end" class="prop" value="1" data-container='item1' size="3" min="1"><br>
+            }
+          </div>
+        </code>
+      </div>
+
+      <pre>
+        .grid-container {
+          display: <span id="displayCode">grid</span>;
+          grid-template-columns: auto auto auto;
+          background-color: #2196F3;
+          padding: 10px;
+          grid-column-gap: 10px;
+          grid-row-gap: 10px;
+        }
+
+        .item1{
+          grid-column-start: <span id="grid-column-startCode">1</span>;
+          grid-column-end: <span id="grid-column-endCode">1</span>;
+        }
+      </pre>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+  <script>
+    $(function () {
+      $(".prop").on('change', function (e) {
+        let v = $(this).val()
+        let i = $(this).attr("id")
+        let c = $(this).data("container")
+        $('.' + c).css(i, v);
+        $('#' + i + 'Code').html(v).addClass('animate');
+        $('#' + i + 'Code').on('animationend', function () {
+          $(this).removeClass('animate');
+        })
+      })
+    })
+  </script>
+</body>
+
+</html>

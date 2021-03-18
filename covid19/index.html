@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Data Situasi Virus Corona: Sumber covid19.go.id</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover" />
 	<style>
 		body {
 			padding: 0;
@@ -133,7 +133,7 @@
 			},
 			methods: {
 				formatNumber: function (x, o) {
-					let a = x > 1 ? '+' : (x < 0 ? '-' : '')
+					let a = x > 0 ? '+' : ''
 					if (typeof o !== 'undefined') a = o
 					return a + x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
 				}
