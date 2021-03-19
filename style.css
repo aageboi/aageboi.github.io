@@ -1,17 +1,22 @@
 footer {
-    background-color: #000000;
-  }
-  
-  section {
-    padding-top: 5rem;
-  }
-  
-  .jumbotron {
-    padding-top: 6rem;
-    background-color: #3b93c5;
-  }
-  
-  #projects {
-    background-color: #3b93c5;
-  }
-  
+  background-color: #000000;
+}
+
+section {
+  padding-top: 5rem;
+}
+
+.jumbotron {
+  padding-top: 6rem;
+  background-color: #3b93c5;
+}
+
+#projects {
+  background-color: #3b93c5;
+}
+
+#contact h2 {
+  word-break: break-word;
+  line-height: 1.125;
+  font-size: 3rem;
+}
