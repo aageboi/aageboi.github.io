@@ -3,8 +3,8 @@ window.addEventListener('load', () => {
   const ctx = canvas.getContext('2d');
 
   // REsizing
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth - 4;
+  canvas.height = window.innerHeight - 4;
 
   let painting = false;
   function startPainting(e) {
@@ -33,9 +33,25 @@ window.addEventListener('load', () => {
   canvas.addEventListener('mousedown', startPainting);
   canvas.addEventListener('mouseup', finishedPainting);
   canvas.addEventListener('mousemove', draw);
-  canvas.addEventListener('touchstart', startPainting);
+  canvas.addEventListener('touchstart', (e) => {
+    painting = true;
+  });
   canvas.addEventListener('touchend', finishedPainting);
-  canvas.addEventListener('touchmove', draw);
+  canvas.addEventListener('touchmove', (e) => {
+    if (!painting) return;
+    var touch = e.touches[0] || e.changedTouches[0];
+    x = touch.pageX;
+    y = touch.pageY;
+
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = 'green';
+    ctx.lineCap = 'round';
+
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  });
   canvas.addEventListener('touchcancel', finishedPainting);
 
 });
